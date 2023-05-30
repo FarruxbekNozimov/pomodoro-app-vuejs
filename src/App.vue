@@ -4,8 +4,8 @@ import { ref, onMounted } from 'vue'
 const settingOpen = ref(false)
 const changeSetting = () => (settingOpen.value = !settingOpen.value)
 
-const minute = ref(0)
-const end = ref(10)
+const minute = ref(25)
+const end = ref(0)
 let isStart = ref(false)
 let myInterval
 
