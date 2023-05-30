@@ -18,7 +18,7 @@ const start = () => {
       end.value = 59
     }
     end.value--
-  }, 100)
+  }, 1000)
 }
 
 const stop = () => {
@@ -126,7 +126,6 @@ input[type='number'] {
 }
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
-  background: black;
-  /* -webkit-appearance: none; */
+  -webkit-appearance: none;
 }
 </style>
