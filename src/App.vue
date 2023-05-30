@@ -16,6 +16,7 @@ const start = () => {
     if (end.value <= 0) {
       minute.value--
       end.value = 59
+      return
     }
     end.value--
   }, 1000)
@@ -53,7 +54,7 @@ const formatNum = (number) => number.toString().padStart(2, '0')
           class="flex items-center justify-center py-3 px-5 rounded-2xl bg-sky-blue text-5xl duration-300"
           @click="stop"
         >
-          <i class="bx bx-pause"></i>
+          <i class="bx bx-refresh"></i>
         </button>
         <button
           v-else
