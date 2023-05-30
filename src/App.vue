@@ -4,27 +4,25 @@ import { ref, onMounted } from 'vue'
 const settingOpen = ref(false)
 const changeSetting = () => (settingOpen.value = !settingOpen.value)
 
-const minute = ref(1)
-const end = ref(0)
+const minute = ref(0)
+const end = ref(10)
 let isStart = ref(false)
 let myInterval
 
 const start = () => {
-  isStart = true
-  // stop()
+  isStart.value = true
   myInterval = setInterval(() => {
-    end.value--
-    if (minute.value == 0 && end.value == 0) return stop()
+    if (minute.value <= 0 && end.value <= 0) return stop()
     if (end.value <= 0) {
       minute.value--
       end.value = 59
     }
+    end.value--
   }, 100)
 }
 
 const stop = () => {
-  console.log('stop')
-  isStart = false
+  isStart.value = false
   clearInterval(myInterval)
 }
 
@@ -71,15 +69,37 @@ const formatNum = (number) => number.toString().padStart(2, '0')
         </button>
       </div>
     </div>
-    <div class="absolute top-0 right-0 flex items-center">
+    <div class="absolute top-0 right-0 flex">
       <div
-        class="transition-transform duration-300 transform translate-x-4 dark:bg-dark-black dark:shadow-light-bg shadow text-white font-bold py-2 px-4 rounded-2xl animate-slideInFromLeft"
+        class="transition-transform duration-300 transform translate-x-4 dark:bg-black dark:shadow-slate-500 shadow-md dark:text-white text-black-text font-bold p-4 rounded-lg animate-slideInFromLeft w-[300px] mt-5 mr-2"
         :class="settingOpen ? 'block' : 'hidden'"
       >
-        Child Element
+        <div class="flex items-center justify-between mb-7">
+          <span class="font-bold text-lg">Settings</span>
+          <i class="bx bx-cross font-bold text-lg cursor-pointer"></i>
+        </div>
+        <div class="flex items-center justify-between mt-7">
+          <span>Dark mode</span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" value="" class="sr-only peer" />
+            <div
+              class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-black after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-slate-500"
+            ></div>
+          </label>
+        </div>
+        <div class="flex items-center justify-between mt-7">
+          <span>Focus length</span>
+          <input
+            type="number"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:text-white w-20 py-1 px-2 text-center"
+            max="60"
+            maxlength="2"
+            min="1"
+          />
+        </div>
       </div>
       <i
-        class="cursor-pointer m-5 bx bx-cog hover:bx-spin text-2xl xl text-white"
+        class="cursor-pointer m-5 bx bx-cog hover:bx-spin text-2xl xl dark:text-white text-dark-text"
         @click="changeSetting"
       ></i>
     </div>
@@ -97,5 +117,16 @@ const formatNum = (number) => number.toString().padStart(2, '0')
   100% {
     transform: translateX(0);
   }
+}
+
+input[type='number'] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  background: black;
+  /* -webkit-appearance: none; */
 }
 </style>
